@@ -10,12 +10,10 @@ public class Item {
 	private String content;
 	private String size;
 	private int stock;
-	private ItemCategory cagegory;
-	private ItemGender gender;
+	private ItemCategory category;
+	private ItemSex sex;
 	private Date createdAt;
 	private Date updatedAt;
-	
-	
 	public int getId() {
 		return id;
 	}
@@ -52,17 +50,17 @@ public class Item {
 	public void setStock(int stock) {
 		this.stock = stock;
 	}
-	public ItemCategory getCagegory() {
-		return cagegory;
+	public ItemCategory getCategory() {
+		return category;
 	}
-	public void setCagegory(ItemCategory cagegory) {
-		this.cagegory = cagegory;
+	public void setCategory(ItemCategory category) {
+		this.category = category;
 	}
-	public ItemGender getGender() {
-		return gender;
+	public ItemSex getSex() {
+		return sex;
 	}
-	public void setGender(ItemGender gender) {
-		this.gender = gender;
+	public void setSex(ItemSex sex) {
+		this.sex = sex;
 	}
 	public Date getCreatedAt() {
 		return createdAt;
@@ -76,6 +74,13 @@ public class Item {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 

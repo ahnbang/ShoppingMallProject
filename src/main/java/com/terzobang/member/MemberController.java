@@ -25,8 +25,6 @@ public class MemberController {
 	@RequestMapping("/signOut")
 	public String singOut(HttpSession session) {
 		session.removeAttribute("loginMember");
-		session.removeAttribute("loginMemberRole");
-		session.removeAttribute("loginMemberName");
 		return "redirect:/main";
 	}
 

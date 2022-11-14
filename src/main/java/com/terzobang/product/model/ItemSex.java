@@ -1,6 +1,6 @@
 package com.terzobang.product.model;
 
-public enum ItemGender {
+public enum ItemSex {
 
 	MALE, FEMALE
 }

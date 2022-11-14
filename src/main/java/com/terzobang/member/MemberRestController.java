@@ -50,8 +50,6 @@ public class MemberRestController {
 		if (result.getStatus() == ResponseStatus.SUCCESS) {
 			Member loginMember = (Member) result.getData();
 			session.setAttribute("loginMember", loginMember);
-			session.setAttribute("loginMemberRole", loginMember.getRole().toString());
-			session.setAttribute("loginMemberName", loginMember.getName());
 			return result;
 		}
 		else {

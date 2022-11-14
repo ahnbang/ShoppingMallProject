@@ -1,0 +1,26 @@
+li {
+      list-style: none;
+    }
+
+    img {
+      width: 200px;
+      height: 200px;
+    }
+
+    .real-upload {
+      display: none;
+    }
+
+    .upload {
+      width: 200px;
+      height: 200px;
+      background-color: rgb(192, 192, 192);;
+    }
+
+    .image-preview {
+      width: 1300px;
+      height: 200px;
+      background-color: rgb(192, 192, 192);
+      display: flex;
+      gap: 20px;
+    }
