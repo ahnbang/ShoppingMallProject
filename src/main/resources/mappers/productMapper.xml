@@ -12,7 +12,17 @@
 			`item`
 	</select>
 	
-	<select id="selectImageListByItemId" parameterType="int"  resultType="com.terzobang.product.model.Image">
+	<select id="selectItemByItemId"  parameterType="int"  resultType="com.terzobang.product.model.Item">
+		SELECT 
+			*
+		FROM
+			`item`
+		WHERE
+			`id` = #{itemId}
+	</select>
+	
+	
+	<select id="selectImageListByItemId" parameterType="int" resultType="com.terzobang.product.model.Image">
 		SELECT 
 			*
 		FROM

@@ -11,7 +11,9 @@ import com.terzobang.product.model.Item;
 public interface ProductDAO {
 	
 	public List<Item> selectAllProductList();
+	public Item selectItemByItemId(int itemId);
 	public List<Image> selectImageListByItemId(int itemId);
+	
 	
 	
 

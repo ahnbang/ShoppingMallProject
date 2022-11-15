@@ -32,9 +32,16 @@ public class ProductBO {
 			product.setImages(imageList);
 			allProducts.add(product);
 		}
-
 		return allProducts; 
+	}
+	
+	public Product getProductByItemId(int itemId) {
+
+		Product product = new Product();
+		product.setItem(productDAO.selectItemByItemId(itemId));
+		product.setImages(productDAO.selectImageListByItemId(itemId));
 		
+		return product;
 	}
 	
 	

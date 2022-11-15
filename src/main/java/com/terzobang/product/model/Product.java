@@ -20,6 +20,13 @@ public class Product {
 		this.images = images;
 	}
 	
+	public String getThumnail() {
+		
+		return images.get(0).getSaveName();
+	}
+	
+	
+	
 	
 
 	
