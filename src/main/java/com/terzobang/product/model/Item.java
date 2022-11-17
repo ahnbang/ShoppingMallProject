@@ -2,6 +2,8 @@ package com.terzobang.product.model;
 
 import java.util.Date;
 
+import com.terzobang.common.exception.NotEnoughStockException;
+
 public class Item {
 	
 	private int id;
@@ -14,6 +16,7 @@ public class Item {
 	private ItemSex sex;
 	private Date createdAt;
 	private Date updatedAt;
+	
 	public int getId() {
 		return id;
 	}
@@ -75,6 +78,23 @@ public class Item {
 		this.updatedAt = updatedAt;
 	}
 	
+	//비니지스 로직 entity내부에 설계하는 방식 시도
+	
+	// 재고 증가
+	public void addStock(int quantity) {
+		this.stock += quantity;
+	}
+	
+	// 재고 감소
+	public void removeStock(int quantity) {
+		int restStock = this.stock - quantity;
+		
+		//상품재고 0미만 검증 
+		if (restStock < 0 ) {
+			throw new NotEnoughStockException("상품 재고 수량은 0보다 작을 수 없습니다.");
+		}
+		this.stock = restStock;
+	}
 	
 	
 	

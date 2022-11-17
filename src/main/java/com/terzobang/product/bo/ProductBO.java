@@ -21,10 +21,8 @@ public class ProductBO {
 	
 	@Transactional
 	public List<Product> getAllProduct(){
-		
 		List<Product> allProducts = new ArrayList<>();
 		List<Item> itemList = productDAO.selectAllProductList();
-		
 		for(Item item : itemList) {
 			List<Image> imageList = productDAO.selectImageListByItemId(item.getId());
 			Product product = new Product();
@@ -36,13 +34,13 @@ public class ProductBO {
 	}
 	
 	public Product getProductByItemId(int itemId) {
-
 		Product product = new Product();
 		product.setItem(productDAO.selectItemByItemId(itemId));
 		product.setImages(productDAO.selectImageListByItemId(itemId));
-		
 		return product;
 	}
+	
+	
 	
 	
 	

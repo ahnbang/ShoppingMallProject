@@ -21,7 +21,6 @@ public class Product {
 	}
 	
 	public String getThumnail() {
-		
 		return images.get(0).getSaveName();
 	}
 	

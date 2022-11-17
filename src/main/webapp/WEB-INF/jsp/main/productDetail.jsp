@@ -19,14 +19,14 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 
-  
+  <script>
+    $(document).ready(function(){
+      $('.slider').bxSlider();
+    });
+  </script>
     </head>
     <body>
-        <script>
-            $(document).ready(function(){
-              $('.slider').bxSlider();
-            });
-          </script>
+    
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
@@ -62,12 +62,16 @@
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6 ">
-                            <div class="slider">
+                    <div class="col-md-6  ">
+                        
+                        <div class="slider">
+
                                 <c:forEach var="imageList" items="${product.getImages()}">
-                                    <img class ="card-img-top mb-5 mb-md-0"  src="${imageList.getSaveName()}" alt="..." />
+                                    <img class ="card-img-top mb-5 mb-md-0" src="${imageList.getSaveName()}" alt="...">
                                 </c:forEach>
-                            </div>
+
+                        </div>
+
                     </div>
                     <div class="col-md-6">
                         <div class="small mb-1">SKU: BST-498</div>

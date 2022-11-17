@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace ="com.terzobang.orders.dao.DeliveryDAO">
+ 
+ 	<insert id ="insertOrders" parameterType="com.terzobang.orders.model.Orders" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `orders`
+		(
+			memberId
+		   ,deliverId
+		   ,status
+		)
+		VALUES
+		(
+			${memberId}
+		   ,${deliverId}
+		   ,${status}
+			
+		)
+ 	</insert>
+
+ </mapper>

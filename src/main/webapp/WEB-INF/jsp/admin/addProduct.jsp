@@ -90,8 +90,8 @@
                 
                 
                 
-                <input type="file" name="images" >
-            <input type="file" name="images" >
+                <input type="file" name="images" multiple='multiple'>
+
                     
                 <div class="form-group row">
                     <div class="col-sm-offset-2 col-sm-10">
