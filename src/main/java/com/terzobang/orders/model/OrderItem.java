@@ -6,7 +6,7 @@ public class OrderItem {
 	
 	private int id;
 	private int itemId;
-	private int orersId;
+	private int ordersId;
 	private int orderPrice;
 	private int orderCount;
 	private Date createdAt;
@@ -24,11 +24,11 @@ public class OrderItem {
 	public void setItemId(int itemId) {
 		this.itemId = itemId;
 	}
-	public int getOrersId() {
-		return orersId;
+	public int getOrdersId() {
+		return ordersId;
 	}
-	public void setOrersId(int orersId) {
-		this.orersId = orersId;
+	public void setOrdersId(int ordersId) {
+		this.ordersId = ordersId;
 	}
 	public int getOrderPrice() {
 		return orderPrice;
@@ -54,6 +54,7 @@ public class OrderItem {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+	
 	
 	
 	

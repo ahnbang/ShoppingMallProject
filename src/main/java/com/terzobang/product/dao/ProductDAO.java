@@ -12,10 +12,12 @@ import com.terzobang.product.model.Item;
 public interface ProductDAO {
 	
 	public List<Item> selectAllProductList();
+	
+	
 	public Item selectItemByItemId(int itemId);
 	public List<Image> selectImageListByItemId(int itemId);
 	
-	public void removeStock(@Param("itemId") int itemId, @Param("orderCount") int orderCount);
+	public void removeStock(@Param("itemId") int itemId, @Param("restStock") int restStock);
 	
 	
 	

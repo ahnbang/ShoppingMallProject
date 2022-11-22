@@ -5,17 +5,27 @@
  <mapper namespace ="com.terzobang.orders.dao.DeliveryDAO">
  
  	<insert id ="insertDelivery" parameterType="com.terzobang.orders.model.Delivery" useGeneratedKeys="true" keyProperty="id">
+		
 		INSERT INTO `delivery`
 		(
-			status
-		   ,address
+			`status`
+		   ,`address`
 		)
 		VALUES
 		(
-			${status}
-		   ,${address}
+			#{status}
+		   ,#{address}
 			
 		)
  	</insert>
+ 	
+ 	<select id="selectDeliveryById" parameterType="int" resultType="com.terzobang.orders.model.Delivery">
+		SELECT 
+			* 
+		FROM
+			`delivery`
+		WHERE 
+			`id` = #{deliveryId}
+	</select>
 
  </mapper>

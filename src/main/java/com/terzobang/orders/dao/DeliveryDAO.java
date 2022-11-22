@@ -8,5 +8,6 @@ import com.terzobang.orders.model.Delivery;
 public interface DeliveryDAO {
 	
 	public void insertDelivery(Delivery delivery);
+	public Delivery selectDeliveryById(int deliveryId);
 
 }

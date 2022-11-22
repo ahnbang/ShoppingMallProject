@@ -6,8 +6,8 @@ public class Orders {
 	
 	private int id;
 	private int memberId;
-	private int deliverId;
-	private OrdersStauts status;
+	private int deliveryId;
+	private OrderStatus status;
 	private Date createdAt;
 	private Date updatedAt;
 	
@@ -23,16 +23,16 @@ public class Orders {
 	public void setMemberId(int memberId) {
 		this.memberId = memberId;
 	}
-	public int getDeliverId() {
-		return deliverId;
+	public int getDeliveryId() {
+		return deliveryId;
 	}
-	public void setDeliverId(int deliverId) {
-		this.deliverId = deliverId;
+	public void setDeliveryId(int deliveryId) {
+		this.deliveryId = deliveryId;
 	}
-	public OrdersStauts getStatus() {
+	public OrderStatus getStatus() {
 		return status;
 	}
-	public void setStatus(OrdersStauts status) {
+	public void setStatus(OrderStatus status) {
 		this.status = status;
 	}
 	public Date getCreatedAt() {

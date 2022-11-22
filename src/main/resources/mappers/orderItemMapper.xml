@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace ="com.terzobang.orders.dao.OrderItemDAO">
+ 
+ 	<insert id ="insertOrderItem" parameterType="com.terzobang.orders.model.OrderItem" useGeneratedKeys="true" keyProperty="id">
+		
+		INSERT INTO `orderitem`
+		(
+			`itemId`
+		   ,`ordersId`
+		   ,`orderPrice`
+		   ,`orderCount`
+		)
+		VALUES
+		(
+			#{itemId}
+		   ,#{ordersId}
+		   ,#{orderPrice}
+		   ,#{orderCount}
+			
+		)
+ 	</insert>
+ 	
+ 	<select id="selectAllOrderItemByOrderId" parameterType="int" resultType="com.terzobang.orders.model.OrderItem">
+		SELECT 
+			* 
+		FROM
+			`orderitem`
+		WHERE 
+			`ordersId` = #{ordersId}
+	</select>
+
+ </mapper>

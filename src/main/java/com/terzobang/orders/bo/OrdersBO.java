@@ -1,5 +1,6 @@
 package com.terzobang.orders.bo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,8 @@ import com.terzobang.orders.dao.OrdersDAO;
 import com.terzobang.orders.model.Delivery;
 import com.terzobang.orders.model.DeliveryStatus;
 import com.terzobang.orders.model.OrderItem;
+import com.terzobang.orders.model.OrderStatus;
 import com.terzobang.orders.model.Orders;
-import com.terzobang.orders.model.OrdersStauts;
 import com.terzobang.product.dao.ProductDAO;
 import com.terzobang.product.model.Item;
 
@@ -34,10 +35,6 @@ public class OrdersBO {
 	private ProductDAO productDAO;
 	
 	
-	// 단일 주문 생성?
-	// 주문 생성 - delivery, orderItem, orders 동시생성, 엄밀히 따지면 순차생성 (delivery -> orders -> orderItem) 주문상품이 연관관게 주인
-	// ㅅㅂ 이질감 느껴지는데
-	
 	public void createOrder(Member member, List<List<Integer>> itemIdAndCounts){
 		
 		// 1. delivery 생성
@@ -49,13 +46,12 @@ public class OrdersBO {
 		// 2. orders 생성
 		Orders orders = new Orders();
 		orders.setMemberId(member.getId());
-		orders.setDeliverId(delivery.getId());
-		orders.setStatus(OrdersStauts.ORDER);
+		orders.setDeliveryId(delivery.getId());
+		orders.setStatus(OrderStatus.ORDER);
 		ordersDAO.insertOrders(orders);
 		
 		
-		// 3.orderItem 생성 -> 여러개의 itemId and orderCount를 밖으로부터 받음
-		
+		// 3.orderItem 생성 + 재고 감소 로직 -> 여러개의 itemId and orderCount를 밖으로부터 받음
 		for (List<Integer> itemIdAndCount : itemIdAndCounts) {
 			
 			OrderItem orderItem = new OrderItem();
@@ -63,11 +59,14 @@ public class OrdersBO {
 			
 			item = productDAO.selectItemByItemId(itemIdAndCount.get(0));
 			
-			orderItem.setOrersId(orders.getId());
+			orderItem.setOrdersId(orders.getId());
 			orderItem.setItemId(item.getId());
 			orderItem.setOrderPrice(item.getPrice());
 			orderItem.setOrderCount(itemIdAndCount.get(1));
 			
+			orderItemDAO.insertOrderItem(orderItem);
+			
+			// 재고 감소 로직
 			int restStock = item.getStock() - itemIdAndCount.get(1);
 			if (restStock < 0 ) {
 				throw new NotEnoughStockException("상품 재고 수량은 0보다 작을 수 없습니다.");
@@ -77,9 +76,35 @@ public class OrdersBO {
 			
 
 		}
-	
+	}
+	public List<Orders> getAllOrdersByMemberId(int memberId){
+		
+		List<Orders> ordersList = new ArrayList<>();
+		ordersList = ordersDAO.selectAllOrdersByMemberId(memberId);
+		
+		return ordersList;
+		
 	}
 	
+	public List<OrderItem> getAllOrderItemByOrderId(int ordersId){
+		
+		List<OrderItem> orderItemList = new ArrayList<>();
+		orderItemList = orderItemDAO.selectAllOrderItemByOrderId(ordersId);
+		
+		return orderItemList;
+		
+	}
+	
+	public Delivery getDeliveryById(int deliveryId) {
+		return deliveryDAO.selectDeliveryById(deliveryId);
+	}
+	
+	
+	
+	
+	
+	
+	/*
 	public void cancelOrder(int ordersId){
 		
 		Orders orders = new Orders();
@@ -92,6 +117,7 @@ public class OrdersBO {
 		
 		ordersDAO.updateOrdersStatus(OrdersStauts.CANCEL);
 		for ()
+
 		
 			
 		
@@ -100,5 +126,6 @@ public class OrdersBO {
 		
 		
 	}
+*/
 }
 

@@ -2,22 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
- <mapper namespace ="com.terzobang.orders.dao.DeliveryDAO">
+ <mapper namespace ="com.terzobang.orders.dao.OrdersDAO">
  
  	<insert id ="insertOrders" parameterType="com.terzobang.orders.model.Orders" useGeneratedKeys="true" keyProperty="id">
+		
 		INSERT INTO `orders`
 		(
-			memberId
-		   ,deliverId
-		   ,status
+			`memberId`
+		   ,`deliveryId`
+		   ,`status`
 		)
 		VALUES
 		(
-			${memberId}
-		   ,${deliverId}
-		   ,${status}
+			#{memberId}
+		   ,#{deliveryId}
+		   ,#{status}
 			
 		)
  	</insert>
+ 	
+ 	<select id="selectAllOrdersByMemberId" parameterType="int" resultType="com.terzobang.orders.model.Orders">
+		SELECT 
+			* 
+		FROM
+			`orders`
+		WHERE 
+			`memberId` = #{memberId}
+	</select>
 
  </mapper>

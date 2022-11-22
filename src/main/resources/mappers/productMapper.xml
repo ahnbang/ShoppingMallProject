@@ -30,6 +30,16 @@
 		WHERE
 			`itemId` = #{itemId}
 	</select>
+	
+	<update id="removeStock" parameterType="map">
+
+		UPDATE `item`
+
+		SET `stock` = #{restStock}
+
+		WHERE `id` = #{itemId}
+
+	</update> 
  	
 
  
