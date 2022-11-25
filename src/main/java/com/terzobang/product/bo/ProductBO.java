@@ -40,6 +40,10 @@ public class ProductBO {
 		return product;
 	}
 	
+	public Item getItemByItemId(int itemId) {
+		return productDAO.selectItemByItemId(itemId);
+	}
+	
 	
 	
 	

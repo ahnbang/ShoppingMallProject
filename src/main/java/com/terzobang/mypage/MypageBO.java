@@ -24,6 +24,7 @@ public class MypageBO {
 	
 	public HashMap<String,Object> createModelDataForView(int memberId){
 		
+
 		HashMap<String, Object> models = new HashMap<>();
 		List<Orders> orderList = ordersBO.getAllOrdersByMemberId(memberId); // 회원id기반 orders 전부 가져오기
 		models.put("orderList", orderList);

@@ -16,7 +16,6 @@ public interface ProductDAO {
 	
 	public Item selectItemByItemId(int itemId);
 	public List<Image> selectImageListByItemId(int itemId);
-	
 	public void removeStock(@Param("itemId") int itemId, @Param("restStock") int restStock);
 	
 	

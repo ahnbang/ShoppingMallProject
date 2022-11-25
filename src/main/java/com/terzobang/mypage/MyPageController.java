@@ -37,7 +37,7 @@ public class MyPageController {
 		model.addAttribute("orders", models.get("orderList"));
 		model.addAttribute("orderItem",models.get("orderItemList"));
 		model.addAttribute("delivery", models.get("deliveryList"));
-		model.addAttribute("item",models.get("itemList"));
+		model.addAttribute("product",models.get("itemList"));
 		
 		return "mypage/main";
 	}
