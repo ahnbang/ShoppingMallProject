@@ -11,15 +11,13 @@ import com.terzobang.common.exception.NotEnoughStockException;
 import com.terzobang.common.response.Response;
 import com.terzobang.common.response.ResponseUtil;
 import com.terzobang.member.model.Member;
-import com.terzobang.orders.dao.DeliveryDAO;
-import com.terzobang.orders.dao.OrderItemDAO;
 import com.terzobang.orders.dao.OrdersDAO;
 import com.terzobang.orders.model.Delivery;
 import com.terzobang.orders.model.DeliveryStatus;
 import com.terzobang.orders.model.OrderItem;
 import com.terzobang.orders.model.OrderStatus;
 import com.terzobang.orders.model.Orders;
-import com.terzobang.product.dao.ProductDAO;
+import com.terzobang.product.bo.ProductBO;
 import com.terzobang.product.model.Item;
 
 @Service
@@ -30,22 +28,22 @@ public class OrdersBO {
 	private OrdersDAO ordersDAO;
 	
 	@Autowired
-	private  DeliveryDAO deliveryDAO;
+	private  DeliveryBO deliveryBO;
 	
 	@Autowired
-	private  OrderItemDAO orderItemDAO;
+	private  OrderItemBO orderItemBO;
 	
 	@Autowired
-	private ProductDAO productDAO;
+	private ProductBO productBO;
 	
-	@Transactional
+	@Transactional 
 	public Response stockCheckFilter(List<Integer> itemIdList, List<Integer> orderCountList){
 		
 		List<String> result = new ArrayList<>();
 		boolean flag = false;
 		for (int i =0; i < itemIdList.size(); i++) {
 			Item item = new Item();
-			item = productDAO.selectItemByItemId(itemIdList.get(i));
+			item = productBO.getItemByItemId(itemIdList.get(i));
 			int restStock = item.getStock() - orderCountList.get(i);
 			int gap = 0;
 			if (restStock < 0) {
@@ -65,96 +63,88 @@ public class OrdersBO {
 	}
 	
 	@Transactional
-	public Response createOrder(Member member, List<Integer> itemIdList, List<Integer> orderCountList){
+	public Response createOrder(Member member, List<Integer> itemIdList, List<Integer> orderCountList, String address){
 		
-		// 1. delivery 생성
+		// 1. delivery 생성 : 연쇄생성을 위해 객체차제를 insert 이후 useGeneratedKeys로 Id값 가져오기
 		Delivery delivery = new Delivery();
-		delivery.setAddress(member.getAddress()); // 차후에 독립 adrress로 별경
+		delivery.setAddress(address);
 		delivery.setStatus(DeliveryStatus.READY);
-		deliveryDAO.insertDelivery(delivery);
+		deliveryBO.createDelivery(delivery);
 		
-		// 2. orders 생성
+		
+		// 2. orders 생성 : 연쇄생성을 위해 객체차제를 insert 이후 useGeneratedKeys로 Id값 가져오기
 		Orders orders = new Orders();
 		orders.setMemberId(member.getId());
 		orders.setDeliveryId(delivery.getId());
 		orders.setStatus(OrderStatus.ORDER);
 		ordersDAO.insertOrders(orders);
 		
-		
 		// 3.orderItem 생성 + 재고 감소
 		for (int i =0; i < itemIdList.size(); i++) {
 			
 			OrderItem orderItem = new OrderItem();
 			Item item = new Item();
-			item = productDAO.selectItemByItemId(itemIdList.get(i));
+			item = productBO.getItemByItemId(itemIdList.get(i));
 			
 			orderItem.setOrdersId(orders.getId());
 			orderItem.setItemId(item.getId());
-			orderItem.setOrderPrice(item.getPrice());
 			orderItem.setOrderCount(orderCountList.get(i));
-			orderItemDAO.insertOrderItem(orderItem);
+			orderItem.setOrderPrice(item.getPrice()*orderCountList.get(i));
+			orderItemBO.createOrderItem(orderItem);
 			
 			// 재고 감소 로직
 			int restStock = item.getStock() - orderCountList.get(i);
 			if (restStock < 0 ) {
-				throw new NotEnoughStockException("상품 재고 수량은 0보다 작을 수 없습니다.");
+				throw new NotEnoughStockException("상품 재고 수량은 0보다 작을 수 없습니다." + "문제의 상품ID = " + item.getId());
 			}
 			
-			productDAO.removeStock(item.getId(), restStock);
+			productBO.updateStock(item.getId(), restStock);
 		}
 		return ResponseUtil.SUCCESS("주문이 정상적으로 완료되었습니다.", orders.getId());
 	}
 	
-	
+	@Transactional
 	public List<Orders> getAllOrdersByMemberId(int memberId){
 		
-		List<Orders> ordersList = new ArrayList<>();
-		ordersList = ordersDAO.selectAllOrdersByMemberId(memberId);
-		
-		return ordersList;
-		
+		return ordersDAO.selectAllOrdersByMemberId(memberId);		
 	}
 	
-	public List<OrderItem> getAllOrderItemByOrderId(int ordersId){
-		
-		List<OrderItem> orderItemList = new ArrayList<>();
-		orderItemList = orderItemDAO.selectAllOrderItemByOrderId(ordersId);
-		
-		return orderItemList;
-		
-	}
-	
-	public Delivery getDeliveryById(int deliveryId) {
-		return deliveryDAO.selectDeliveryById(deliveryId);
-	}
-	
-	
-	
-	
-	
-	
-	/*
-	public void cancelOrder(int ordersId){
-		
-		Orders orders = new Orders();
-		orders = ordersDAO.selectOrdersByOrdersId();
-		Delivery delivery = deliveryDAO.selectDeliveryByOrderId(ordersId);
-		
-		if(delivery.getStatus() == DeliveryStatus.COMPLETE) {
-			throw new IllegalStateException("이미 배송완료된 상품은 취소가 불가능합니다.");
-		}
-		
-		ordersDAO.updateOrdersStatus(OrdersStauts.CANCEL);
-		for ()
-
-		
+	@Transactional
+	public Integer totalOrderPriceByItemIdList(List<Integer> itemIdList, List<Integer> orderCountList) {
+		int totalPrice = 0;
+		for (int i =0; i < itemIdList.size(); i++) {
 			
-		
-		
-		
-		
-		
+			Item item = productBO.getItemByItemId(itemIdList.get(i));
+			totalPrice += (item.getPrice()*orderCountList.get(i));
+			
+		}
+		return totalPrice;
 	}
-*/
+	
+	@Transactional
+	public Response cancelOrder(int ordersId, int deliveryId, int orderItemId) {
+		
+			// check 
+			Delivery delivery = deliveryBO.getDeliveryById(deliveryId);
+			if(delivery.getStatus() != DeliveryStatus.READY) {
+				return ResponseUtil.FAIL("배송중이거나 배송중인 상품은 취소 불가합니다", null);
+			}
+			
+			//주문 상태 변경
+			ordersDAO.updateOrderStatusById(ordersId, OrderStatus.CANCEL);
+			
+			//재고 증가
+			List<OrderItem> orderItemList = orderItemBO.getOrderItemById(orderItemId);
+			for(OrderItem orderitem : orderItemList) {
+			Item item = productBO.getItemByItemId(orderitem.getItemId());
+			int itemId = item.getId();
+			int restStock = item.getStock() + orderitem.getOrderCount();
+			productBO.updateStock(itemId, restStock);
+			}
+			
+			return ResponseUtil.SUCCESS("선택한 주문이 취소되었습니다.", null);
+			
+	}
+	
 }
 

@@ -7,7 +7,6 @@
 </head>
 
 <body class="sb-nav-fixed">
-
   <%@ include file="/WEB-INF/jsp/mypage/layouts/nav.jsp" %>
   <main>
     <%@ include file="/WEB-INF/jsp/mypage/mainContent.jsp" %>

@@ -64,7 +64,7 @@
                         <span class="visually-hidden">Toggle Dropdown</span>
                     </button>
                         <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/mypage"><i class="fa-solid fa-address-card"></i>
+                    <li><a class="dropdown-item" href="/mypage/main"><i class="fa-solid fa-address-card"></i>
                         마이페이지</a></li>
                     <li><a class="dropdown-item" href=""><i class="fa-solid fa-user-gear"></i>
                         회원정보 수정</a></li>

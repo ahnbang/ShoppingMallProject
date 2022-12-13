@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%> 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <nav class="sb-topnav navbar navbar-expand navbar-light bg-light">
     <!-- Sidebar Toggle Button-->
     <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
@@ -65,13 +64,16 @@
                       <span class="visually-hidden">Toggle Dropdown</span>
                   </button>
                       <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#"><i class="fa-solid fa-address-card"></i>
+                  <li><a class="dropdown-item" href="/mypage/main"><i class="fa-solid fa-address-card"></i>
                       마이페이지</a></li>
                   <li><a class="dropdown-item" href="#"><i class="fa-solid fa-user-gear"></i>
                       회원정보 수정</a></li>
-                  <li><a class="dropdown-item" href="#"><i class="bi-cart-fill me-1"></i>
+                  <li><a class="dropdown-item" href="/mypage/cart"><i class="fa-solid fa-cart-shopping"></i>
                       장바구니
                       <span class="text-black "></span></a></li>
+                    <li><a class="dropdown-item" href="/mypage/cart"><i class="fas fa-table me-1"></i>
+                      주문내역
+                    <span class="text-black "></span></a></li>  
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="/member/signOut"><i class="fa-solid fa-person-through-window fa-fade" style="--fa-animation-duration: 2s; --fa-fade-opacity: 0.6;" ></i>
                       LogOut</a></li>
@@ -106,28 +108,36 @@
         <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
                 <div class="nav">
+
+                    <a class="nav-link" href="/mypage/main">
+                        <div class="sb-nav-link-icon"><i class="fa-solid fa-rotate-left"></i></div>
+                        마이페이지  
+                    </a>
+
+                    <a class="nav-link" href="/mypage/orderhistory">
+                        <div class="sb-nav-link-icon"><i class="fas fa-table me-1"></i></div>
+                        주문 내역 조회
+                    </a>
+
+                    <a class="nav-link" href="/mypage/cart">
+                        <div class="sb-nav-link-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+                        장바구니
+                    </a>
                     
-                    <a class="nav-link" href="charts.jsp">
-                        <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                        주문내역
+                    <a class="nav-link" href="/mypage/memberUpdateView">
+                        <div class="sb-nav-link-icon"><i class="fa-solid fa-user-pen"></i></div>
+                        회원정보 변경
                     </a>
 
-                    <a class="nav-link" href="tables.jsp">
-                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                        Tables
+                    <a class="nav-link" href="/mypage/claimView">
+                        <div class="sb-nav-link-icon"><i class="fa-solid fa-circle-exclamation"></i></div>
+                        고객문의
                     </a>
-
-
-
-
-
-
-
                 </div>
             </div>
             <div class="sb-sidenav-footer">
-                <div class="small">Logged in as:</div>
-                Start Bootstrap
+                <div class="small">기타 문의:</div>
+                ahn.bangplo@gmail.com
             </div>
         </nav>
     </div>

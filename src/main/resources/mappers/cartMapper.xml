@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace ="com.terzobang.cart.dao.CartDAO">
+ 
+ 	<insert id ="insertCart" parameterType="int">
+		
+		INSERT INTO `cart`
+		(
+		   `memberId`
+		)
+		VALUES
+		(
+			#{memberId}
+			
+		)
+ 	</insert>
+ 	
+ 	<insert id ="insertCartItem" parameterType="map">
+		
+		INSERT INTO `cartItem`
+		(
+		   `cartId`
+		   ,`itemId`
+		   ,`count`
+		   ,`size`
+		)
+		VALUES
+		(
+			#{cartId}
+			,#{itemId}
+			,#{count}
+			,#{size}
+			
+		)
+ 	</insert>
+ 	
+ 	<select id="selectCartByMemberId" parameterType="int" resultType="com.terzobang.cart.model.Cart">
+		SELECT 
+			* 
+		FROM
+			`cart`
+		WHERE 
+			`memberId` = #{memberId}
+	</select>
+	
+	<select id="selctAllCartItemByCartId" parameterType="int" resultType="com.terzobang.cart.model.CartItem">
+		SELECT 
+			* 
+		FROM
+			`cartItem`
+		WHERE 
+			`cartId` = #{cartId}
+	</select>
+	
+	<delete id="deleteCartItemById" parameterType="int">
+		DELETE
+		FROM
+			`cartitem`
+		WHERE
+			id = #{cartItemId}
+	</delete>
+
+ </mapper>

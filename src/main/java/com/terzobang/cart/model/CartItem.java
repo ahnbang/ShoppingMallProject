@@ -1,14 +1,14 @@
-package com.terzobang.orders.model;
+package com.terzobang.cart.model;
 
 import java.util.Date;
 
-public class OrderItem {
+public class CartItem {
 	
 	private int id;
+	private int cartId;
 	private int itemId;
-	private int ordersId;
-	private int orderPrice;
-	private int orderCount;
+	private int count;
+	private String size;
 	private Date createdAt;
 	private Date updatedAt;
 	
@@ -18,29 +18,29 @@ public class OrderItem {
 	public void setId(int id) {
 		this.id = id;
 	}
+	public int getCartId() {
+		return cartId;
+	}
+	public void setCartId(int cartId) {
+		this.cartId = cartId;
+	}
 	public int getItemId() {
 		return itemId;
 	}
 	public void setItemId(int itemId) {
 		this.itemId = itemId;
 	}
-	public int getOrdersId() {
-		return ordersId;
+	public int getCount() {
+		return count;
 	}
-	public void setOrdersId(int ordersId) {
-		this.ordersId = ordersId;
+	public String getSize() {
+		return size;
 	}
-	public int getOrderPrice() {
-		return orderPrice;
+	public void setSize(String size) {
+		this.size = size;
 	}
-	public void setOrderPrice(int orderPrice) {
-		this.orderPrice = orderPrice;
-	}
-	public int getOrderCount() {
-		return orderCount;
-	}
-	public void setOrderCount(int orderCount) {
-		this.orderCount = orderCount;
+	public void setCount(int count) {
+		this.count = count;
 	}
 	public Date getCreatedAt() {
 		return createdAt;
@@ -54,8 +54,5 @@ public class OrderItem {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
-	
-	
 	
 }

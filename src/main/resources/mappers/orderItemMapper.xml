@@ -31,5 +31,14 @@
 		WHERE 
 			`ordersId` = #{ordersId}
 	</select>
+	
+	<select id="selectOrderItemById" parameterType="int" resultType="com.terzobang.orders.model.OrderItem">
+		SELECT 
+			* 
+		FROM
+			`orderitem`
+		WHERE 
+			`id` = #{orderItemId}
+	</select>
 
  </mapper>

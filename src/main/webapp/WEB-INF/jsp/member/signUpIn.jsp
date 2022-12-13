@@ -58,7 +58,7 @@
         </div>
 
         <div class="formGroup">
-          <button type="button" id="submitbtn" class="btn2">REGISTER</button>
+          <button type="button" id="submitbtn" class="gradtionBtn">REGISTER</button>
         </div>
  
       </form>
@@ -80,7 +80,7 @@
         </div>
 
         <div class="formGroup">
-          <button type="submit" id = "loginbtn2"  class="btn2">Login</button>
+          <button type="submit" id = "loginbtn2"  class="gradtionBtn">Login</button>
         </div>
 
        </form>
@@ -106,10 +106,8 @@
  
   // real-time 검증
   function loginIdCheck(){
-
     // 아이디 길이 검증
 		var loginId = $('#loginId').val().trim();
-
     if (loginId.length < 4){
       $('.idCheckLength').css("display","inline-block").removeClass('d-none');
       $('.idCheckDuplicated').css("display", "none").addClass('d-none');
@@ -143,20 +141,16 @@
 			}
 		});
 	};
-
 // 제출 검증
 $(document).ready(function() {
-
 	$('#submitbtn').on('click', function(e) {
 		e.preventDefault(); 
-
 		// 아이디 공백 확인
 		var loginId = $('input[name=loginId]').val().trim();
 		if (loginId == '') {
 			alert("아이디를 입력하세요.");
 			return;
 		}
-
     // 비밀번호 공백 확인
 		var password = $('input[name=password]').val().trim();
 		var confirmPassword = $('input[name=confirmPassword]').val().trim();
@@ -173,21 +167,18 @@ $(document).ready(function() {
 			  $('#confirmPassword').val(''); //초기화가 안됨.... 해결해야함...
 			return;
 		}
-
     // 이름 공백 확인
 		var name = $('input[name=name]').val().trim();
 		if (name == '') {
 			alert("이름을 입력하세요.");
 			return;
 		}
-
     // 이메일 공백 확인
 		var email = $('input[name=email]').val().trim();
 		if (email == '') {
 			alert("이메일 주소를 입력하세요.");
 			return;
 		}
-
     // 주소 공백 확인
 		var addressStreet = $('input[name=addressStreet]').val().trim();
 		if (addressStreet == '') {
@@ -200,13 +191,11 @@ $(document).ready(function() {
 			alert("상세 주소를 입력하세요");
 			return;
 		}
-
     // 반례 처리
     if ($('#idCheckOk').hasClass('d-none') == true) {
 			alert("아이디 확인을 다시 해주세요.");
 			return;
 		}
-
 		var url = $('#signUpForm').attr("action");   
 		var data = $('#signUpForm').serialize(); 
 		$.post(url, data)
@@ -219,7 +208,6 @@ $(document).ready(function() {
 			}
 		}); 
 	})
-
   $('#loginbtn2').on('click',function(e) {
     e.preventDefault();
 		
@@ -244,14 +232,10 @@ $(document).ready(function() {
 				location.href="/main"; 
 			} else {
 				alert(data.message);
-
 			}
 		}); 
 	});
-
 });
-
-
 </script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>

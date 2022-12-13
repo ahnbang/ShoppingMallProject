@@ -36,7 +36,7 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
-                        <div class="sb-sidenav-menu-heading fs-6 text-white">Product</div>
+                        <div class="sb-sidenav-menu-heading fs-6 text-white">상품 및 주문 관리</div>
                         
                         
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -47,10 +47,10 @@
 
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="/admin/addProductView">상품등록</a>
-                                <a class="nav-link" href="layout-static.jsp">상품조회</a>
-                                <a class="nav-link" href="layout-sidenav-light.jsp">상품수정</a>
-                                <a class="nav-link" href="layout-sidenav-light.jsp">상품삭제</a>
+                                <a class="nav-link" href="/admin/createProductView">상품등록</a>
+                                <a class="nav-link" href="/admin/readProductView">상품조회</a>
+                                <a class="nav-link" href="/admin/updateProductView">상품수정</a>
+                                <a class="nav-link" href="/admin/deleteProductView">상품삭제</a>
                             </nav>
                         </div>
 

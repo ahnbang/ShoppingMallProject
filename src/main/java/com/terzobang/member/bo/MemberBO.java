@@ -1,18 +1,22 @@
 package com.terzobang.member.bo;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.mysql.cj.util.StringUtils;
+import com.terzobang.cart.bo.CartBO;
 import com.terzobang.common.response.Response;
 import com.terzobang.common.response.ResponseUtil;
 import com.terzobang.member.dao.MemberDAO;
 import com.terzobang.member.model.Member;
 
 @Service
+@Transactional
 public class MemberBO {
 	
 	@Autowired
@@ -21,9 +25,13 @@ public class MemberBO {
 	@Autowired
 	private MemberDAO memberDAO;
 	
+	@Autowired
+	private CartBO cartBO;
+	
 	private Logger log = LoggerFactory.getLogger(MemberBO.class);
 	
 	// Member Create Service
+	@Transactional
 	public Response createMember(String loginId, String password, String name, String email, String addressStreet, String addressDetail) {
 		
 		String address = addressStreet + " " + addressDetail;
@@ -32,6 +40,9 @@ public class MemberBO {
 		int row =  memberDAO.insertMember(name, address, loginId, encodedPassword, email);
 		
 		if(row == 1) {
+			Member member = memberDAO.selectMemberByLoginId(loginId);
+			cartBO.createCart(member.getId());
+			
 			return ResponseUtil.SUCCESS("회원가입에 성공했습니다. 로그인을 해주세요", 301);
 		}
 		else {
@@ -40,7 +51,8 @@ public class MemberBO {
 		}
 	}
 	
-	// Vaildate Duplicate LoginId 
+	// Vaildate Duplicate LoginId Service
+	@Transactional
 	public Response vaildateDuplicateLoginId(String loginId) {
 		
 		int row = memberDAO.vaildateLoginId(loginId);
@@ -52,6 +64,8 @@ public class MemberBO {
 			return ResponseUtil.SUCCESS("사용가능한 아이디입니다.", null);
 	}
 	
+	// Login Check Service
+	@Transactional
 	public Response loginCheck(String loginIdForLogin, String passwordForLogin) {
 		
 		Member loginMember = new Member();
@@ -69,14 +83,14 @@ public class MemberBO {
 			return ResponseUtil.FAIL("일치하는 아이디가 없습니다",  null);
 		}
 		
-		
-		
-		
-		
-		
-		
+	}
+	@Transactional
+	public List<Member> getAllMember(){
+		return memberDAO.selectAllMember();
+	}
+	@Transactional
+	public List<Member> getAllAdmin(){
+		return memberDAO.selectAllAdmin();
 	}
 	
-	
-
 }

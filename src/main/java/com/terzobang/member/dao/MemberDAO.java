@@ -1,5 +1,7 @@
 package com.terzobang.member.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -23,6 +25,10 @@ public interface MemberDAO {
 	public Member selectMemberByMemberName(String name);
 	
 	public Member selectMemberByMemberId(int id);
+	
+	public List<Member> selectAllMember();
+	
+	public List<Member> selectAllAdmin();
 	
 	
 }

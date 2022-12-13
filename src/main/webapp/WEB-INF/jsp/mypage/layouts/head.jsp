@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <title>Dashboard - SB Admin</title>
+  <title>관리자페이지</title>
   <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
   <link href="/static/css/admin.css" rel="stylesheet" />
   <script src="https://kit.fontawesome.com/ed1d3e2a99.js" crossorigin="anonymous"></script>

@@ -53,30 +53,27 @@
                         </div>
 
 
-
-
-
-
-
-
-
-
                         <p class="lead">${Item.getContent()}</p>
                         <div class="d-flex">
 
-                            <form class="order" id = "orderForm" action="/stockCheck" method="post">
+                            <form class="order" id = "orderForm" action="/order/orderCheck" method="post">
                                 <input class="form-control text-center me-3" id="orderCount" name="orderCount" type="num" value="1" style="max-width: 3rem" />
-                               
-                                <input type="hidden" name="itemId" id="itemId" value="${product.getItem().getId()}">
- 
+                                <input type="hidden" id="itemId" name="itemId" value="${product.getItem().getId()}">
                                     <button class="btn btn-outline-dark flex-shrink-0" id="orderButton" type="submit">
                                         <i class="bi-cart-fill me-1"></i>
                                             바로 구매
                                     </button>
+                                    <button class="btn btn-outline-dark flex-shrink-0" id="addCartButton">
+                                        <i class="bi-cart-fill me-1"></i>
+                                            장바구니 담기
+                                    </button>
                             </form>
+       
 
-                        <script>
+                           
+                            
 
+                        <script>            
                             $(document).ready(function() {
                                 $('#orderButton').on('click', function(e) {
                                     e.preventDefault(); 
@@ -94,30 +91,73 @@
                                     
                                     var orderCountLen = $("input[name=orderCount]").length;
                                     var orderCountList = new Array(orderCountLen);
-                                    var itemIdList = new Array(orderCountLen);
-        
+                                    var itemIdList = new Array(orderCountLen);     
+
 		                            for(var i=0; i<orderCountLen; i++){                          
                                         orderCountList[i] = $("input[name=orderCount]").eq(i).val();
                                         itemIdList[i] = $("input[name=itemId]").eq(i).val();
                                         };
 
-                                    
                                     $.ajax({
-                                        url: "/stockCheck",
+                                        url: "/order/stockCheck",
+                                        type: "post",
                                         traditional: true,
                                         data: {"itemIdList": itemIdList,
                                                "orderCountList": orderCountList},
                                         success: function(data) {
                                             if (data.status == "SUCCESS") {
-                                                location.href="/orderCheck"; 
+                                                $('#orderForm').submit()
                                             } else {
                                                 alert(data.data);
 
                                             }
                                         }
                                     }); 
-                                });
 
+                                    
+                                });
+                                
+                                $('#addCartButton').on('click', function(e) {
+                                    e.preventDefault(); 
+                                    var orderCount = $('input[name=orderCount]').val().trim();
+                                    if (orderCount <= 0 || orderCount ==""){
+                                        alert("주문수량을 확인해 주세요");
+                                        return;
+                                    }
+
+                                    var loginState = '<c:out value="${loginMember}"/>';
+                                    if (loginState == ""){
+                                        alert("로그인 이후 사용해주세요");
+                                        return;
+                                    }
+                                    
+                                    var orderCount = $('input[name=orderCount]').val();
+                                    var itemId = '<c:out value="${Item.getId()}"/>';
+                                    var memberId = '<c:out value="${loginMember.getId()}"/>';
+                                    var size = '<c:out value="${Item.getSize()}"/>';
+                                         
+
+
+                                    $.ajax({
+                                        url: "/cart/addCartItem",
+                                        type: "post",
+                                        data: {"count": orderCount,
+                                               "itemId": itemId,
+                                               "memberId":memberId,
+                                               "size":size
+                                            },
+                                        success: function(data) {
+                                            if (data.status == "SUCCESS") {
+                                                alert(data.message);
+                                            } else {
+                                                alert(data.data);
+
+                                            }
+                                        }
+                                    }); 
+
+                                    
+                                });
                             });
 
                         </script>

@@ -29,5 +29,24 @@
 		WHERE 
 			`memberId` = #{memberId}
 	</select>
+	
+	<select id="selectOrdersByOrdersId" parameterType="int" resultType="com.terzobang.orders.model.Orders">
+		SELECT 
+			* 
+		FROM
+			`orders`
+		WHERE 
+			`id` = #{ordersId}
+	</select>
+	
+	<update id="updateOrderStatusById" parameterType="map">
+
+		UPDATE `orders`
+
+		SET `status` = #{orderStatus}
+
+		WHERE `id` = #{ordersId}
+
+	</update>
 
  </mapper>

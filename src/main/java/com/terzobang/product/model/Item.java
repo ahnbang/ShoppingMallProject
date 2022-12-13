@@ -85,16 +85,7 @@ public class Item {
 		this.stock += quantity;
 	}
 	
-	// 재고 감소
-	public void removeStock(int quantity) {
-		int restStock = this.stock - quantity;
-		
-		//상품재고 0미만 검증 
-		if (restStock < 0 ) {
-			throw new NotEnoughStockException("상품 재고 수량은 0보다 작을 수 없습니다.");
-		}
-		this.stock = restStock;
-	}
+	
 	
 	
 	

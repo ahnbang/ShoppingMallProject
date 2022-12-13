@@ -58,11 +58,30 @@
 	<select id="selectMemberByMemberId" parameterType="int" resultType="com.terzobang.member.model.Member">
 		SELECT 
 			* 
-		FROMs
+		FROM
 			`member`
 		WHERE 
 			`id` = #{id}
 	</select>
+	
+	<select id="selectAllMember" resultType="com.terzobang.member.model.Member">
+		SELECT 
+			* 
+		FROM
+			`member`
+		WHERE 
+			`role` = #{USER} or `role` = #{VIP}
+	</select>
+	
+	<select id="selectAllAdmin" resultType="com.terzobang.member.model.Member">
+		SELECT 
+			* 
+		FROM
+			`member`
+		WHERE 
+			`role` = #{ADMIN}
+	</select>
+	
  	
 
  

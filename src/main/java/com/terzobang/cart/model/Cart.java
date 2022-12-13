@@ -1,31 +1,26 @@
-	package com.terzobang.orders.model;
+package com.terzobang.cart.model;
 
 import java.util.Date;
 
-public class Delivery {
+public class Cart {
 	
 	private int id;
-	private DeliveryStatus status;
-	private String address;
+	private int memberId;
 	private Date createdAt;
 	private Date updatedAt;
+	
+	
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public DeliveryStatus getStatus() {
-		return status;
+	public int getMemberId() {
+		return memberId;
 	}
-	public void setStatus(DeliveryStatus status) {
-		this.status = status;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setMemberId(int memberId) {
+		this.memberId = memberId;
 	}
 	public Date getCreatedAt() {
 		return createdAt;
@@ -39,6 +34,8 @@ public class Delivery {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+	
+	
 	
 	
 	

@@ -4,8 +4,47 @@
  
  <mapper namespace ="com.terzobang.product.dao.ProductDAO">
  
+ 	<insert id ="insertItem" parameterType="com.terzobang.product.model.Item" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `item`
+		(
+			`name`
+			, `price`
+			, `content`
+			, `size`
+			, `stock`
+			, `category`
+			, `sex`
+		)
+		VALUES
+		(
+			  #{name}
+			, #{price}
+			, #{content}
+			, #{size}
+			, #{stock}
+			, #{category}
+			, #{sex}
+		)
+ 	</insert>
+ 	
+ 	<insert id="insertImage" parameterType="map">
+                
+        INSERT INTO `image`
+        ( 	
+        	`itemId`
+        	,`savename`
+
+         )
+        VALUES
+        
+        <foreach collection="imagePathList" item="item" separator=",">
+            (
+            ${itemId}, #{item}
+            )
+        </foreach>
+    </insert>
  
- 	<select id="selectAllProductList"  resultType="com.terzobang.product.model.Item">
+ 	<select id="selectAllItemList"  resultType="com.terzobang.product.model.Item">
 		SELECT 
 			*
 		FROM
@@ -21,7 +60,6 @@
 			`id` = #{itemId}
 	</select>
 	
-	
 	<select id="selectImageListByItemId" parameterType="int" resultType="com.terzobang.product.model.Image">
 		SELECT 
 			*
@@ -31,7 +69,16 @@
 			`itemId` = #{itemId}
 	</select>
 	
-	<update id="removeStock" parameterType="map">
+	<select id="selectItemListByCateogry" parameterType="string" resultType="com.terzobang.product.model.Item">
+		SELECT 
+			*
+		FROM
+			`item`
+		WHERE
+			`category` = #{category}
+	</select>
+	
+	<update id="updateStock" parameterType="map">
 
 		UPDATE `item`
 
@@ -39,7 +86,47 @@
 
 		WHERE `id` = #{itemId}
 
+	</update>
+	
+	<update id="updateItem" parameterType="com.terzobang.product.model.Item">
+	    UPDATE `item`
+	    SET
+	        `name` = #{name}
+	        ,`price` = #{price}
+	        ,`content` = #{content}
+	        ,`size` = #{size}
+	        ,`stock` = #{stock}
+	        ,`category` = #{category}
+	        ,`sex` = #{sex}
+	        
+	    WHERE
+	        `id` = #{id}
 	</update> 
+	
+	
+	<delete id="deleteItemByitemId" parameterType="int">
+		
+		DELETE
+		FROM
+			`item`
+		WHERE
+			id = #{itemId}
+	
+	</delete>
+	
+	<delete id="deleteImageByitemId" parameterType="int">
+		
+		DELETE
+		FROM
+			`image`
+		WHERE
+			itemId = #{itemId}
+	
+	</delete>
+	
+	
+	
+	
  	
 
  
