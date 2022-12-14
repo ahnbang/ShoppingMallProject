@@ -87,8 +87,10 @@
                     <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="/admin/main"><i class="fa-solid fa-cog fa-spin"></i>
                         관리자 페이지</a></li>
-                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-circle-plus"></i>
-                        상품 등록 - 개발용 기능</a></li>
+                    <li><a class="dropdown-item" href="/admin/createProductView"><i class="fa-solid fa-circle-plus"></i>
+                        상품 등록</a></li>
+                    <li><a class="dropdown-item" href="/admin/readProductView"><i class="fa-solid fa-magnifying-glass"></i>
+                        상품 조회</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="/member/signOut"><i class="fa-solid fa-person-through-window fa-fade" style="--fa-animation-duration: 2s; --fa-fade-opacity: 0.6;" ></i>
                         LogOut</a></li>

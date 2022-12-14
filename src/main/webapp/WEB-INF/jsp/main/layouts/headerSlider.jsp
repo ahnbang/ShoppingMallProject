@@ -2,6 +2,7 @@
 pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link href="/static/css/headerSlider.css" rel="stylesheet" />
+
 <!-- Slider -->
 <div id="slider">
   <div class="slides">
@@ -14,7 +15,7 @@ pageEncoding="UTF-8"%>
         </div>
       </div>
       <div class="image">
-        <img src="https://cdn.stocksnap.io/img-thumbs/960w/VVHE6VHMAW.jpg">
+        <img src="/static/img/slider1.jpg">
       </div>
     </div>
     <div class="slider">
@@ -26,7 +27,7 @@ pageEncoding="UTF-8"%>
         </div>
       </div>
       <div class="image">
-        <img src="https://cdn.stocksnap.io/img-thumbs/960w/AKWVXIXFA8.jpg">
+        <img src="/static/img/slider2.jpg">
       </div>
     </div>
     <div class="slider">
@@ -38,7 +39,7 @@ pageEncoding="UTF-8"%>
         </div>
       </div>
       <div class="image">
-        <img src="https://cdn.stocksnap.io/img-thumbs/960w/TPLJK7JPRR.jpg">
+        <img src="/static/img/slider3.jpg">
       </div>
     </div>
     <div class="slider">
@@ -50,7 +51,7 @@ pageEncoding="UTF-8"%>
         </div>
       </div>
       <div class="image">
-        <img src="https://cdn.stocksnap.io/img-thumbs/960w/XJ2BKV9ASS.jpg">
+        <img src="/static/img/slider4.jpg">
       </div>
     </div>
   </div>
