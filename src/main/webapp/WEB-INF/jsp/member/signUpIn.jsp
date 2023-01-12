@@ -229,7 +229,7 @@ $(document).ready(function() {
 		$.post(url, data)
 		.done(function(data) {
 			if (data.status == "SUCCESS") {
-				location.href="/main"; 
+				location.href="${header.referer}"; 
 			} else {
 				alert(data.message);
 			}

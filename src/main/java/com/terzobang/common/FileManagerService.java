@@ -22,15 +22,13 @@ public class FileManagerService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	public List<String> saveFile(List<MultipartFile> files, int ItemId) {
-		List <String> imagesPath = new ArrayList<>(); // 최종 return 
+		List <String> imagesPath = new ArrayList<>();
 		String directoryName = ItemId + "_" + System.currentTimeMillis() + "/";
 		String filePath = FILE_UPLOAD_PATH + directoryName;
 		File directory = new File(filePath);
 		if (directory.mkdir() == false) {
 			return null;
 		}
-		
-		
 		for (MultipartFile file : files) {
 			try {
 					byte[] bytes = file.getBytes();
@@ -48,10 +46,6 @@ public class FileManagerService {
 	
 	
 	public void deleteFile(List<String> imagePathList) throws IOException {
-		//  imagePath: /images/marobiana_1658476222233/20220629_140829.jpg
-		// D:\\shinboram\\spring_project\\sns\\workspace\\images/ /images/marobiana_1658476222233/20220629_140829.jpg
-		// 전체 경로와 imagePath간의 중복되는 /images/ 문자열을 제거한 후 실제 저장 경로를 찾는다.
-
 		for (String imagePath : imagePathList) {
 			imagePath = imagePath.replace("/images/", "");
 			Path path = Paths.get(FILE_UPLOAD_PATH + imagePath);
