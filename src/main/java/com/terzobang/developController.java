@@ -19,12 +19,6 @@ public class developController {
 		return "/test";
 	}
 	
-	@RequestMapping("test2")
-	@ResponseBody
-	public String test2(@RequestParam("orderCount") List<Integer> orderCount) {
-		
-		
-		return orderCount.get(0).getClass().getName();
-	}
+	
 
 }
