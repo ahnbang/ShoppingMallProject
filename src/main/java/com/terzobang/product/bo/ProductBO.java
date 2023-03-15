@@ -27,13 +27,14 @@ import com.terzobang.product.model.Product;
 public class ProductBO {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private final ProductDAO productDAO;
+	private final FileManagerService fileManager;
 	
 	@Autowired
-	private ProductDAO productDAO;
-	
-	@Autowired
-	private FileManagerService fileManager;
-	
+	public ProductBO(ProductDAO productDAO, FileManagerService fileManager){
+		this.productDAO = productDAO;
+		this.fileManager = fileManager;
+	}
 	
 	@Transactional
 	public Response createProduct(String name, String content, ItemCategory category, ItemSex sex, String size, int price, int stock, List<MultipartFile> images) {
@@ -60,7 +61,7 @@ public class ProductBO {
 		return ResponseUtil.SUCCESS("상품 추가가 완료되었습니다.", null);
 	}
 	
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<Product> getAllProduct(){
 		List<Product> allProducts = new ArrayList<>();
 		List<Item> itemList = productDAO.selectAllItemList();
@@ -74,7 +75,7 @@ public class ProductBO {
 		return allProducts; 
 	}
 	
-	@Transactional
+	@Transactional(readOnly = true)
 	public Product getProductByItemId(int itemId) {
 		Product product = new Product();
 		product.setItem(productDAO.selectItemByItemId(itemId));
@@ -82,7 +83,7 @@ public class ProductBO {
 		return product;
 	}
 	
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<Product> getProductByCategory(String category){
 			
 		List<Product> allProductsByCategory = new ArrayList<>();
@@ -158,7 +159,7 @@ public class ProductBO {
 	
 	
 	//Read Part
-	@Transactional
+	@Transactional(readOnly = true)
 	public Item getItemByItemId(int itemId) {
 		return productDAO.selectItemByItemId(itemId);
 	}

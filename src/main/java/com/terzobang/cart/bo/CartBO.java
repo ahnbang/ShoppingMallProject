@@ -25,7 +25,7 @@ public class CartBO {
 		cartDAO.insertCart(memberId);
 	}
 	
-	@Transactional
+	@Transactional(readOnly = true)
 	public Cart getCartByMemberId(int memberId) {
 		return cartDAO.selectCartByMemberId(memberId);
 	}
@@ -43,7 +43,7 @@ public class CartBO {
 		}
 	}
 	
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<CartItem> getAllCartItemByMemberId(int memberId){
 		
 		Cart cart = cartDAO.selectCartByMemberId(memberId);

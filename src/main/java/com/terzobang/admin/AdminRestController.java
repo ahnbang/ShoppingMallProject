@@ -27,10 +27,11 @@ import com.terzobang.product.model.Product;
 @RequestMapping("/admin")
 public class AdminRestController {
 	
+	private final ProductBO productBO;
 	@Autowired
-	private ProductBO productBO;
-	
-	private Logger logger = LoggerFactory.getLogger(ProductBO.class);
+	public AdminRestController(ProductBO productBO) {
+		this.productBO = productBO;
+	}
 	
 	@RequestMapping("/addProduct")
 	public ResponseEntity<?> addProduct(
@@ -56,7 +57,6 @@ public class AdminRestController {
 	
 	@RequestMapping("/deleteProduct")
 	public Response deleteProduct(@RequestParam("itemId") int itemId) {
-		logger.error("itemId", itemId);
 		return productBO.deleteProductByitemId(itemId);
 		
 	}

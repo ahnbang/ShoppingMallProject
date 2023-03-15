@@ -17,8 +17,10 @@ import org.springframework.web.multipart.MultipartFile;
 @Component   // controller, service, repository
 public class FileManagerService {
 	
-	//public final static String FILE_UPLOAD_PATH = "C:\\STS\\dailylookpic/";
-	public final static String FILE_UPLOAD_PATH = "/home/ec2-user/shopimages/";
+	// 개발환경
+	public final static String FILE_UPLOAD_PATH = "C:\\STS\\shopImages/";
+	//EC2 환경
+	//public final static String FILE_UPLOAD_PATH = "/home/ec2-user/shopimages/";
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	public List<String> saveFile(List<MultipartFile> files, int ItemId) {

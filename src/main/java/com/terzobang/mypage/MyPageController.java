@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -25,24 +26,29 @@ import com.terzobang.product.model.Product;
 
 @Controller
 @RequestMapping("/mypage")
+@Transactional
 public class MyPageController {
 	
-	@Autowired
-	private CartBO cartBO;
+	private final CartBO cartBO;
+	private final OrdersBO ordersBO;
+	private final ProductBO productBO;
+	private final DeliveryBO deliveryBO;
+	private final OrderItemBO orderItemBO;
 	
 	@Autowired
-	private OrdersBO ordersBO;
+	public MyPageController(CartBO cartBO, OrdersBO ordersBO, ProductBO productBO, DeliveryBO deliveryBO, OrderItemBO orderItemBO)
+	{
+		this.cartBO = cartBO;
+		this.ordersBO = ordersBO;
+		this.productBO = productBO;
+		this.deliveryBO = deliveryBO;
+		this.orderItemBO = orderItemBO;
+	}
 	
-	@Autowired
-	private ProductBO productBO;
 	
-	@Autowired
-	private DeliveryBO deliveryBO;
-	
-	@Autowired
-	private OrderItemBO orderItemBO;
 	
 	@RequestMapping("/main")
+	@Transactional(readOnly = true)
 	public String mypage(Model model, HttpSession session){
 		
 		Member member = (Member)session.getAttribute("loginMember");
@@ -85,6 +91,7 @@ public class MyPageController {
 	}
 	
 	@RequestMapping("/orderhistory")
+	@Transactional(readOnly = true)
 	public String mypageOrderHistory(Model model, HttpSession session){
 		
 		Member member = (Member)session.getAttribute("loginMember");
@@ -112,6 +119,7 @@ public class MyPageController {
 	}
 	
 	@RequestMapping("/cart")
+	@Transactional(readOnly = true)
 	public String mypageCart(Model model, HttpSession session){
 		
 		Member member = (Member)session.getAttribute("loginMember");

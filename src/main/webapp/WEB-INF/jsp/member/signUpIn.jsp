@@ -229,7 +229,8 @@ $(document).ready(function() {
 		$.post(url, data)
 		.done(function(data) {
 			if (data.status == "SUCCESS") {
-				location.href="${header.referer}"; 
+				//location.href="${header.referer}";
+        location.href="/main";
 			} else {
 				alert(data.message);
 			}

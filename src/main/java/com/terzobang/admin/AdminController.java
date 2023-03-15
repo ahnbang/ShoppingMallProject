@@ -1,7 +1,5 @@
 package com.terzobang.admin;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +10,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.terzobang.member.bo.MemberBO;
 import com.terzobang.product.bo.ProductBO;
-import com.terzobang.product.model.Product;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
 	
-	@Autowired
-	private ProductBO productBO;	
+	private final ProductBO productBO;
+	private final MemberBO memberBO;
 	
 	@Autowired
-	private MemberBO memberBO;
+	public AdminController(ProductBO productBO, MemberBO memberBO) {
+		this.productBO = productBO;
+		this.memberBO = memberBO;
+	}
+	
+	
+
 	
 	@RequestMapping("/main")
 	public String adminMain(Model model, HttpSession session) {

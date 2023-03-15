@@ -13,8 +13,13 @@ import com.terzobang.product.model.Product;
 @Controller
 public class MainController {
 	
+	private final ProductBO productBO;
+	
 	@Autowired
-	private ProductBO productBO;
+	public MainController(ProductBO productBO) {
+		this.productBO = productBO;
+	}
+	
 	
 	@RequestMapping("/main")
 	public String Main(Model model) {

@@ -18,9 +18,13 @@ import com.terzobang.common.response.ResponseUtil;
 @RequestMapping("/cart")
 public class CartRestController {
 	
-	@Autowired
-	private CartBO cartBO;
 	
+	private final CartBO cartBO;
+	
+	@Autowired
+	public CartRestController(CartBO cartBO) {
+		this.cartBO = cartBO;
+	}
 	private Logger log;
 	@RequestMapping("/addCartItem")
 	public Response addCartItem(

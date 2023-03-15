@@ -22,6 +22,7 @@
 			, `password`
 			, `email`
 			, `address`
+			, `role`
 			, `createdAt`
 			, `updatedAt`
 		)
@@ -32,6 +33,7 @@
 			, #{password}
 			, #{email}
 			, #{address}
+			, #{role}
 			, NOW()
 			, NOW()
 		) 	

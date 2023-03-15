@@ -14,21 +14,24 @@ import com.terzobang.common.response.Response;
 import com.terzobang.common.response.ResponseUtil;
 import com.terzobang.member.dao.MemberDAO;
 import com.terzobang.member.model.Member;
+import com.terzobang.member.model.MemberRole;
 
 @Service
 @Transactional
 public class MemberBO {
 	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+	private final PasswordEncoder passwordEncoder;
+	private final MemberDAO memberDAO;
+	private final CartBO cartBO;
+
 	
 	@Autowired
-	private MemberDAO memberDAO;
+	public MemberBO(PasswordEncoder passwordEncoder, MemberDAO memberDAO, CartBO cartBO) {
+		this.passwordEncoder = passwordEncoder;
+		this.memberDAO = memberDAO;
+		this.cartBO = cartBO;
+	}
 	
-	@Autowired
-	private CartBO cartBO;
-	
-	private Logger log = LoggerFactory.getLogger(MemberBO.class);
 	
 	// Member Create Service
 	@Transactional
@@ -36,8 +39,7 @@ public class MemberBO {
 		
 		String address = addressStreet + " " + addressDetail;
 		String encodedPassword = passwordEncoder.encode(password);
-		
-		int row =  memberDAO.insertMember(name, address, loginId, encodedPassword, email);
+		int row =  memberDAO.insertMember(name, address, loginId, encodedPassword, email, MemberRole.USER);
 		
 		if(row == 1) {
 			Member member = memberDAO.selectMemberByLoginId(loginId);
@@ -46,13 +48,12 @@ public class MemberBO {
 			return ResponseUtil.SUCCESS("회원가입에 성공했습니다. 로그인을 해주세요", 301);
 		}
 		else {
-			log.warn("결과 row가 1개 이상입니다.");
 			return ResponseUtil.FAIL("회원가입에 실패했습니다. 관리자에게 문의 부탁드립니다.", 500);
 		}
 	}
 	
 	// Vaildate Duplicate LoginId Service
-	@Transactional
+	@Transactional(readOnly = true)
 	public Response vaildateDuplicateLoginId(String loginId) {
 		
 		int row = memberDAO.vaildateLoginId(loginId);
@@ -65,7 +66,7 @@ public class MemberBO {
 	}
 	
 	// Login Check Service
-	@Transactional
+	@Transactional(readOnly = true)
 	public Response loginCheck(String loginIdForLogin, String passwordForLogin) {
 		
 		Member loginMember = new Member();
@@ -84,11 +85,11 @@ public class MemberBO {
 		}
 		
 	}
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<Member> getAllMember(){
 		return memberDAO.selectAllMember();
 	}
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<Member> getAllAdmin(){
 		return memberDAO.selectAllAdmin();
 	}

@@ -16,9 +16,10 @@ import com.terzobang.member.model.Member;
 @RequestMapping("/member")
 public class MemberRestController {
 	
-	@Autowired
-	private MemberBO memberBO;
-	
+	private final MemberBO memberBO;
+	public MemberRestController(MemberBO memberBO){
+		this.memberBO = memberBO;
+		}
 	
 	// 회원가입 
 	@RequestMapping("/signUp")

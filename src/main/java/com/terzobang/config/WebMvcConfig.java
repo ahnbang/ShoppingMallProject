@@ -7,9 +7,7 @@ import com.terzobang.common.FileManagerService;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
-	
-
-	
+		
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry
